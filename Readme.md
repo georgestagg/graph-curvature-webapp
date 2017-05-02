@@ -1,4 +1,4 @@
-###Requirements ###
+### Requirements ###
 * Python 2.7
 * virtualenv for Python
 
@@ -16,8 +16,7 @@ To install the graph calculator locally, run the following commands in order.
 
 Then visit `http://localhost:8000` in your browser.
 
-
 ### Installation Online###
 * Place these files somewhere on the public web.
-* Install the graph-curvature-server and follow the instructions to start the server on a port (e.g. 8090)
-* Edit the file `curvature.js` and change `http://teggers.eu:8090/` to your own server's address and port.
+* Install the [graph-curvature-server](https://mas-gitlab.ncl.ac.uk/graph-curvature/graph-curvature-server) and follow the instructions to start the server on a port (e.g. 8090)
+* Edit the file `curvature.js` and change `localhost:8090` in the fist line to your server and port, e.g `teggers.eu:8090`.
