@@ -1,3 +1,4 @@
+var serverURL = "localhost:8090"
 var undoStack = new Array();
 var curveTypeStack = new Array();
 $(document).ready(function()
@@ -208,7 +209,7 @@ function getlabels(){
 	}
 
 	$.ajax({
-url:"http://teggers.eu:8090/?am="+AMstring+"&v="+Vstring+"&t="+curveType+"&d="+dimNval,
+url:"http://"+serverURL+"/?am="+AMstring+"&v="+Vstring+"&t="+curveType+"&d="+dimNval,
 dataType: 'jsonp',
 success:function(json){
 var patt = new RegExp("error");
