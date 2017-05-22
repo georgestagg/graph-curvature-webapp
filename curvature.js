@@ -1,4 +1,4 @@
-var serverURL = "localhost:8090"
+var serverURL = "teggers.eu:8090"
 var undoStack = new Array();
 var curveTypeStack = new Array();
 $(document).ready(function()
@@ -61,7 +61,7 @@ position: pos
 
 function showHideDimN(){
 	curveType = $("#curveType").val();
-	if(curveType == 5){
+	if(curveType == 5 || curveType == 7){
 		$("#dimN").show();
 	} else {
 		$("#dimN").hide();
