@@ -1,4 +1,4 @@
-var serverURL = "teggers.eu:8090"
+var graphURL = "graph.teggers.eu"
 var undoStack = new Array();
 var curveTypeStack = new Array();
 $(document).ready(function()
@@ -67,12 +67,21 @@ function showHideDimN(){
 		$("#dimN").hide();
 	}
 }
+function showHideIdleN(){
+	curveType = $("#curveType").val();
+	if(curveType == 8){
+		$("#idleN").show();
+	} else {
+		$("#idleN").hide();
+	}
+}
 //setup styles
 cy.style().selector('core').style({'active-bg-opacity': '0'}).update();
 cy.style().selector('node').style({'overlay-opacity': '0'}).update();
 $("#admjsoncontainer").hide();
 $("#controlsinfo").hide();
 showHideDimN();
+showHideIdleN();
 pushStateToStack();
 
 function buildAM(){
@@ -123,6 +132,7 @@ function updateLabels(json){
 		for (i = 0; i < numV; i++) {
 			for (j = 0; j < numV; j++) {
 				if (i==j) continue;
+				if (typeof json["AM"][i] === "undefined") continue;
 				if(json["AM"][i][j] == 0) continue;
 				//only connected i,j left
 				selected_edges = cy.edges('[source="'+nodes[i].data().id+'"][target="'+nodes[j].data().id+'"]')
@@ -132,6 +142,48 @@ function updateLabels(json){
 						if (ORC<0){
 							selected_edges[0].data('pol',"#8888ef");
 						} else if(ORC>0){
+							selected_edges[0].data('pol',"#ef8888");
+						} else {
+							selected_edges[0].data('pol',"#aaaaaa");
+						}
+					}
+			}
+		}
+	} else if(curveType == 8){
+		for (i = 0; i < numV; i++) {
+			for (j = 0; j < numV; j++) {
+				if (i==j) continue;
+				if (typeof json["AM"][i] === "undefined") continue;
+				if(json["AM"][i][j] == 0) continue;
+				//only connected i,j left
+				selected_edges = cy.edges('[source="'+nodes[i].data().id+'"][target="'+nodes[j].data().id+'"]')
+					if (selected_edges.length == 1){
+						ORCI = Math.round(json["ORCI"][i][j] * 1000) / 1000
+							selected_edges[0].data('ecurve', ORCI);
+						if (ORCI<0){
+							selected_edges[0].data('pol',"#8888ef");
+						} else if(ORCI>0){
+							selected_edges[0].data('pol',"#ef8888");
+						} else {
+							selected_edges[0].data('pol',"#aaaaaa");
+						}
+					}
+			}
+		}
+	} else if(curveType == 9){
+		for (i = 0; i < numV; i++) {
+			for (j = 0; j < numV; j++) {
+				if (i==j) continue;
+				if (typeof json["AM"][i] === "undefined") continue;
+				if(json["AM"][i][j] == 0) continue;
+				//only connected i,j left
+				selected_edges = cy.edges('[source="'+nodes[i].data().id+'"][target="'+nodes[j].data().id+'"]')
+					if (selected_edges.length == 1){
+						LLYC = Math.round(json["LLYC"][i][j] * 1000) / 1000
+							selected_edges[0].data('ecurve', LLYC);
+						if (LLYC<0){
+							selected_edges[0].data('pol',"#8888ef");
+						} else if(LLYC>0){
 							selected_edges[0].data('pol',"#ef8888");
 						} else {
 							selected_edges[0].data('pol',"#aaaaaa");
@@ -200,6 +252,7 @@ function getlabels(){
 		spinner.stop();
 	}
 	var spinner = new Spinner(opts).spin();
+	$(".spinner").remove();
 	document.getElementById('cy').appendChild(spinner.el);
 
 	var dimNval;
@@ -207,9 +260,14 @@ function getlabels(){
 	if(dimNval == "" || typeof dimNval === "undefined"){
 		dimNval = "2";
 	}
+	var idleNval;
+	idleNval = $("#idleN").val();
+	if(idleNval == "" || typeof idleNval === "undefined"){
+		idleNval = "0";
+	}
 
 	$.ajax({
-url:"http://"+serverURL+"/?am="+AMstring+"&v="+Vstring+"&t="+curveType+"&d="+dimNval,
+url:"http://"+graphURL+"?am="+AMstring+"&v="+Vstring+"&t="+curveType+"&d="+dimNval+"&idlen="+idleNval,
 dataType: 'jsonp',
 success:function(json){
 var patt = new RegExp("error");
@@ -227,14 +285,48 @@ nodes[i].data('curve', '-∞');
 if(json[0] == "error8b"){
 nodes = cy.nodes("[weight>0]");
 for (i = 0; i < nodes.length; i++) {
-nodes[i].data('curve', 'ERR');
+nodes[i].data('curve', 'NaN');
 }
 }
+if(json[0] == "error13a"){
+nodes = cy.edges();
+for (i = 0; i < nodes.length; i++) {
+nodes[i].data('ecurve', 'NaN');
+nodes[i].data('pol','#aaaaaaa');
+}
+nodes = cy.nodes("[weight>0]");
+for (i = 0; i < nodes.length; i++) {
+nodes[i].data('pol','#000000');
+}
+}
+if(json[0] == "error13b"){
+nodes = cy.edges();
+for (i = 0; i < nodes.length; i++) {
+nodes[i].data('ecurve', '0');
+nodes[i].data('pol','#aaaaaa');
+}
+nodes = cy.nodes("[weight>0]");
+for (i = 0; i < nodes.length; i++) {
+nodes[i].data('pol','#000000');
+}
+}
+if(json[0] == "error13c"){
+nodes = cy.edges();
+for (i = 0; i < nodes.length; i++) {
+nodes[i].data('ecurve', 'NaN');
+nodes[i].data('pol','#aaaaaa');
+}
+nodes = cy.nodes("[weight>0]");
+for (i = 0; i < nodes.length; i++) {
+nodes[i].data('pol','#000000');
+}
+}
+
 spinner.stop();
 }
 },
 error:function(json){
-	      console.log("ERROR: "+json);
+	      console.log("ERROR: "+JSON.stringify(json));
 	      spinner.stop();
       }      
 });
@@ -253,6 +345,7 @@ function popStateFromStack(){
 		$("#curveType").val(curveType);
 		getlabels();
 		showHideDimN();
+		showHideIdleN();
 	}
 }
 
@@ -509,7 +602,7 @@ return true;
 });
 
 
-$("#undobtn").click(function( event ) {
+$("#undobtn").on('click',function( event ) {
 		popStateFromStack();
 		});
 
@@ -517,13 +610,18 @@ $("#curveType").change(function() {
 		getlabels();
 		pushStateToStack();
 		showHideDimN();
+		showHideIdleN();
 		});
 $("#dimN").change(function() {
 		getlabels();
 		pushStateToStack();
 		});
+$("#idleN").change(function() {
+		getlabels();
+		pushStateToStack();
+		});
 
-$(document).click(function( event ) {
+$(document).on('click',"body",function( event ) {
 		switch (event.which) {
 		case 1:
 		if(addNewNode == 0 && hoveringOnNode == 1){

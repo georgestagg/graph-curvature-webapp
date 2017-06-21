@@ -162,7 +162,7 @@
           Graph viz with <a href="http://js.cytoscape.org">cytoscape.js</a>
         </div>
          <div style="font-size: 12px;">
-          v0.5
+          v0.6.2
         </div>
         <hr>
         <div id="controlsinfo">
@@ -195,8 +195,11 @@
                 <option value="7">Normalised Curvature with Finite Dimension</option>
                 <option value="4">Normalised Curvature</option>
                 <option value="6">Ollivier-Ricci Curvature</option>
+                <option value="8">Ollivier-Ricci Curvature with Idleness</option>
+                <option value="9">Lin-Lu-Yau Curvature</option>
         </select>
         <input type="text" id="dimN" name="dimN" size="1" placeholder="2"></input>
+        <input type="text" id="idleN" name="idleN" size="1" placeholder="0"></input>
     </form><hr>
     <div>Adjacency Matrix&nbsp;<a id="admhideshow" href="javascript:void(0)">[Show]</a></div>
     <div id="admjsoncontainer">
@@ -212,7 +215,7 @@
     <script src="sweetalert.min.js"></script>
     <script src="jquery-2.2.0.min.js"></script>
     <script src="cytoscape.min.js"></script>
-    <script src="curvature.js"></script>
+    <script src="curvature-0.6.2.js"></script>
   </body>
 
 </html>
