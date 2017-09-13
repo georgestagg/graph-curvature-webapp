@@ -149,10 +149,18 @@
     </div>
     <div id="autolayout">
       <a style="font-weight: 600; font-size: 12px;" id="labelsbtn" href="javascript:void(0);">[Toggle Labels]</a><br>
-      <a style="font-weight: 600; font-size: 12px;" id="autolayoutbtn" href="javascript:void(0);">[Autolayout]</a></div>
+      <span style="font-weight: 600;font-size: 12px;"> Autolayout:</span> <select id="autolayoutselect">
+        <option value="random">Random</option>
+        <option value="grid">Grid</option>
+        <option value="circle" selected>Circle</option>
+        <option value="concentric">Concentric</option>
+        <option value="breadthfirst">Breadth First</option>
+        <option value="cose">Compound Spring</option>
+      </select>
+    </div>
     <div id="infocontainer">
       <div style="font-weight: 600;">
-        Graph curvature calculator v0.6.2
+        Graph curvature calculator v0.6.3
       </div>
       <div id="info">
         <div style="font-weight: 300;">
@@ -216,7 +224,7 @@
     <script src="sweetalert.min.js"></script>
     <script src="jquery-2.2.0.min.js"></script>
     <script src="cytoscape.min.js"></script>
-    <script src="curvature-0.6.2.js"></script>
+    <script src="curvature.js?0.6.3"></script>
   </body>
 
 </html>
