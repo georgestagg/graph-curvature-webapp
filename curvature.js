@@ -269,8 +269,10 @@ function getlabels(){
 	}
 
 	$.ajax({
-url:"http://"+graphURL+"?am="+AMstring+"&v="+Vstring+"&t="+curveType+"&d="+dimNval+"&idlen="+idleNval,
-dataType: 'jsonp',
+method:"POST",
+url:"http://"+graphURL,
+data:{am:AMstring,v:Vstring,t:curveType,d:dimNval,idlen:idleNval},
+dataType: 'json',
 success:function(json){
 var patt = new RegExp("error");
 var err = patt.test(json[0]);
