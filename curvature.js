@@ -51,7 +51,7 @@ style: {
 }
 ],
 	elements: [{"data":{"id":"n40","weight":1,"curve":"0","pol":"#000000"},"position":{"x":0,"y":0},"group":"nodes","removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"classes":""}],
-	minZoom: 1,
+	minZoom: 0.5,
 	maxZoom: 3
 	});
 
@@ -461,7 +461,7 @@ function loadAM(newAMString) {
 		for (j = i; j < numV; j++){
 			if (i==j) continue;
 			if (newAM[i][j] != 0){
-				cy.add([{group: "edges", data: {id:nodeid.toString(),weight:1,source:i.toString(),target:j.toString(),"pol":"#000000"}}]);
+				cy.add([{group: "edges", data: {id:nodeid.toString(),weight:1,source:i.toString(),target:j.toString(),"pol":"#aaaaaa"}}]);
 				nodeid = nodeid + 1;
 			}
 		}
@@ -602,9 +602,11 @@ if (status < 0) {
 swal.showInputError("Graph load error");
 return false;
 } else {
-autoLayout();
-getlabels();
-swal.close();
+setTimeout(function() {
+	autoLayout();
+	getlabels();
+	swal.close();
+},0);
 }
 return true;
 });
