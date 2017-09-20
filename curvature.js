@@ -193,6 +193,27 @@ function updateLabels(json){
 					}
 			}
 		}
+	} else if(curveType == 10){
+		for (i = 0; i < numV; i++) {
+			for (j = 0; j < numV; j++) {
+				if (i==j) continue;
+				if (typeof json["AM"][i] === "undefined") continue;
+				if(json["AM"][i][j] == 0) continue;
+				//only connected i,j left
+				selected_edges = cy.edges('[source="'+nodes[i].data().id+'"][target="'+nodes[j].data().id+'"]')
+					if (selected_edges.length == 1){
+						LLYC = Math.round(json["NNLLYC"][i][j] * 1000) / 1000
+							selected_edges[0].data('ecurve', LLYC);
+						if (LLYC<0){
+							selected_edges[0].data('pol',"#8888ef");
+						} else if(LLYC>0){
+							selected_edges[0].data('pol',"#ef8888");
+						} else {
+							selected_edges[0].data('pol',"#aaaaaa");
+						}
+					}
+			}
+		}
 	} else {
 		for (i = 0; i < numV; i++) {
 			id = nodes[i].data().id;
