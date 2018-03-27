@@ -1,4 +1,4 @@
-var graphURL = "graph.teggers.eu"
+var graphURL = "graph.gwstagg.co.uk"
 var undoStack = new Array();
 var curveTypeStack = new Array();
 $(document).ready(function()
