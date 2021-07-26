@@ -1,4 +1,4 @@
-var graphURL = "graph.gwstagg.co.uk"
+var graphURL = "0.0.0.0:8090"
 var undoStack = new Array();
 var curveTypeStack = new Array();
 $(document).ready(function()
@@ -291,7 +291,7 @@ function getlabels(){
 
 	$.ajax({
 method:"POST",
-url:"https://"+graphURL,
+url:"http://"+graphURL,
 data:{am:AMstring,v:Vstring,t:curveType,d:dimNval,idlen:idleNval},
 dataType: 'json',
 success:function(json){
@@ -429,12 +429,7 @@ function removeEdge(e1) {
 	pushStateToStack();
 }
 function autoLayout() {
-	if($('#autolayoutselect').val() == "cose"){
-		cy.layout({ name: $('#autolayoutselect').val(),fit: true, padding: 300,animate: 'end',animationDuration:500,nodeDimensionsIncludeLabels:true});
-	} else {
-		cy.layout({ name: $('#autolayoutselect').val(),fit: true, padding: 300,animate: true,nodeDimensionsIncludeLabels:true});
-	}
-
+	cy.layout({ name: $('#autolayoutselect').val(),fit: true, padding: 300,animate: true,nodeDimensionsIncludeLabels:true});
 }
 
 function loadAM(newAMString) {
@@ -582,10 +577,11 @@ $("#showhideinfo").click(function( event ) {
 		}
 		});
 
-$("#autolayoutselect").click(function( event ) {
+$("#autolayoutselect").change(function( event ) {
 		autoLayout();
 		pushStateToStack();
 		});
+
 $("#labelsbtn").click(function( event ) {
 		if(showLabels == 1){
 		showLabels = 0;
