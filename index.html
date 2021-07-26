@@ -1,6 +1,14 @@
 <!DOCTYPE>
 <html>
   <head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-55076685-4"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+ 		 function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'UA-55076685-4');
+		</script>
     <title>Graph Curvature</title>
 
     <meta http-equiv="cache-control" content="max-age=0" />
@@ -162,16 +170,12 @@
       <div style="font-weight: 600;">
         Graph curvature calculator v0.7.2
       </div>
+      <br>
       <div id="info">
-        <div style="font-weight: 300;">
-          Copyright (c) 2017 George Stagg and David Cushing.
-        </div>
-        <div style="font-size: 14px;">
-          Includes the graph visualisation software <a href="https://github.com/cytoscape/cytoscape.js">cytoscape.js</a> (MIT Licenced).
-        </div>
-         <div style="font-size: 14px;">
+         <div style="font-size: 12px;">
           If you have found this software useful, please cite the following article:<br>
-	  <i>The Graph Curvature Calculator and the curvatures of cubic graphs,</i> <b>arXiv:1712.03033 [math.CO]</b>
+	  <i>The Graph Curvature Calculator and the curvatures of cubic graphs,</i> Experimental Mathematics, 2019<br>
+		<i>(arXiv:1712.03033 [math.CO])</i>
         </div>
         <hr>
         <div id="controlsinfo">
@@ -187,7 +191,8 @@
             Pan - Click empty space and drag<br> 
             Move vertex - Click a vertex and drag<br>
             <br>
-          </div>
+          Includes the graph visualisation software <a href="https://github.com/cytoscape/cytoscape.js">cytoscape.js</a> (MIT Licenced).
+        </div>
         </div>
       </div>
       <a style="font-weight: 600; font-size: 12px;" id="showhideinfo" href="javascript:void(0)">[Show Help]</a>
@@ -199,7 +204,7 @@
                 <option value="0">Vertex Number</option>
                 <option value="1" selected>Non-normalised Curvature Sign</option>
                 <option value="2">Normalised Curvature Sign</option>
-                <option value="3">Non-normalised Curvature</option>
+                <option selected value="3">Non-normalised Curvature</option>
                 <option value="5">Non-Normalised Curvature with Finite Dimension</option>
                 <option value="7">Normalised Curvature with Finite Dimension</option>
                 <option value="4">Normalised Curvature</option>
@@ -225,7 +230,7 @@
     <script src="sweetalert.min.js"></script>
     <script src="jquery-2.2.0.min.js"></script>
     <script src="cytoscape.min.js"></script>
-    <script src="curvature.js?v=0.7.2"></script>
+    <script src="curvature.js?v=0.7.22"></script>
 
   </body>
 
