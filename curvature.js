@@ -1,4 +1,4 @@
-var graphURL = "0.0.0.0:8090"
+var graphURL = "gwstagg.co.uk:10897"
 var undoStack = new Array();
 var curveTypeStack = new Array();
 $(document).ready(function()
@@ -291,7 +291,7 @@ function getlabels(){
 
 	$.ajax({
 method:"POST",
-url:"http://"+graphURL,
+url:"https://"+graphURL,
 data:{am:AMstring,v:Vstring,t:curveType,d:dimNval,idlen:idleNval},
 dataType: 'json',
 success:function(json){
