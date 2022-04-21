@@ -1,0 +1,9 @@
+Graph Curvature Calculator:
+George Stagg & David Cushing
+Contributions by Ben Snodgrass and Norbert Peyerimhoff
+
+Libraries:
+Cytoscape.js: https://js.cytoscape.org
+jQuery: https://jquery.com
+Spinner: https://spin.js.org
+Alerts: https://sweetalert2.github.io
