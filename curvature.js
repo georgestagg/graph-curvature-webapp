@@ -1,4 +1,4 @@
-var graphURL = "gwstagg.co.uk:10897"
+var graphURL = "graph.gwstagg.co.uk/dev"
 var undoStack = new Array();
 var curveTypeStack = new Array();
 $(document).ready(function()
